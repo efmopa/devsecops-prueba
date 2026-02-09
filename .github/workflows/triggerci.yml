@@ -1,0 +1,21 @@
+name: Punto 1 - CI Trigger
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    types: [ closed ]
+
+jobs:
+  trigger:
+    if: github.event_name == 'push' || github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Confirm trigger
+        run: |
+          echo "Evento: ${{ github.event_name }}"
+          echo "Commit: ${{ github.sha }}"
+
